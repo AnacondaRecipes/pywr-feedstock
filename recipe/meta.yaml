@@ -3,7 +3,7 @@
 {% set sha256 = "b23f6c611a47dce0c4a8c9b932e419d82cbb3c0cb022273613c552f7e74f3816" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -13,44 +13,46 @@ source:
 build:
   number: 0
   skip: true  # [py<310]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
   host:
     - python
     - pip
-    - {{ compiler('c') }}
-    - numpy
-    - cython
-    - packaging
-    - glpk
-    - lp_solve
-    - future
-    - packaging
+    # [build-system].requires per upstream pyproject.toml
     - setuptools
-    - setuptools_scm
+    - setuptools-scm >=8
+    - cython >=3
+    - numpy {{ numpy }}
+    # Linked solver libraries (setup.py: libraries=["glpk"] / ["lpsolve55"])
+    - glpk {{ glpk }}
+    - lp_solve 5.5.2.11
   run:
     - python
     - pandas <3
     - networkx
-    - glpk
-    - lp_solve
-    - pytables
-    # Fix pytables on windows. See https://github.com/conda-forge/pytables-feedstock/issues/31#issuecomment-410695814
-    - snappy  # [win]
-    - openpyxl
+    - numpy
     - scipy
+    - pytables
+    - openpyxl
     - packaging
-    - jupyter
-    - matplotlib-base
 
 test:
   imports:
     - pywr
     - pywr.core
+  requires:
+    - pip
+  commands:
+    - pip check
+    # Verify the linked solver extensions load (solver imports in pywr.solvers are try/except-guarded, so a bare import would pass with broken linkage)
+    - python -c "from pywr.solvers import cython_glpk, cython_lpsolve"
 
 about:
-  home: http://github.com/pywr/pywr
+  home: https://github.com/pywr/pywr
   license: GPL-3.0-or-later
   license_family: GPL
   license_file: LICENSE.txt
@@ -61,8 +63,8 @@ about:
     application is in resource allocation in water supply networks, although
     other uses are conceivable. It uses Cython extensions for computational
     efficiency.
-  doc_url: https://pywr.github.io/pywr-docs/index.html
-  dev_url: http://github.com/pywr/pywr
+  doc_url: https://pywr.github.io/pywr/
+  dev_url: https://github.com/pywr/pywr
 
 extra:
   recipe-maintainers:
