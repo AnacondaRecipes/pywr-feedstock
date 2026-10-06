@@ -1,0 +1,5 @@
+# TEMPORARY: resolve lp_solve from its PR graph channel until lp_solve 5.5.2.11
+# is released to pkgs/main (AnacondaRecipes/lp_solve-feedstock#1, PKG-18653).
+# MUST be removed before merge.
+channels:
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/c81f3f8c-7216-4262-b01e-86b9905e8508
