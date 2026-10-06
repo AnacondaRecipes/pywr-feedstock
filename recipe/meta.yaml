@@ -63,7 +63,7 @@ about:
     application is in resource allocation in water supply networks, although
     other uses are conceivable. It uses Cython extensions for computational
     efficiency.
-  doc_url: https://pywr.github.io/pywr/
+  doc_url: https://pywr.github.io/pywr
   dev_url: https://github.com/pywr/pywr
 
 extra:
