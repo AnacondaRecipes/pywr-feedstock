@@ -41,6 +41,8 @@ requirements:
     - packaging
 
 test:
+  files:
+    - run_test.py
   imports:
     - pywr
     - pywr.core
@@ -48,8 +50,9 @@ test:
     - pip
   commands:
     - pip check
-    # Verify the linked solver extensions load (solver imports in pywr.solvers are try/except-guarded, so a bare import would pass with broken linkage)
-    - python -c "from pywr.solvers import cython_glpk, cython_lpsolve"
+    # run_test.py solves a tiny LP with both solver backends and exercises
+    # TablesRecorder write/read (PyTables I/O)
+    - python run_test.py
 
 about:
   home: https://github.com/pywr/pywr
