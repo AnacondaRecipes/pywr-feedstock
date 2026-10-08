@@ -2,4 +2,4 @@
 # is released to pkgs/main (AnacondaRecipes/lp_solve-feedstock#1, PKG-18653).
 # MUST be removed before merge.
 channels:
-  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/c81f3f8c-7216-4262-b01e-86b9905e8508
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/92518f1a-a22c-43ab-804b-82df21b2cb90
