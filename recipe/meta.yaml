@@ -1,6 +1,6 @@
 {% set name = "pywr" %}
-{% set version = "1.31.1" %}
-{% set sha256 = "b23f6c611a47dce0c4a8c9b932e419d82cbb3c0cb022273613c552f7e74f3816" %}
+{% set version = "1.29.0" %}
+{% set sha256 = "a00bd7efca319bbb715121c2b110446af34802ae4ac9707701ff4f35248e9bb7" %}
 
 package:
   name: {{ name }}
@@ -32,6 +32,7 @@ requirements:
     - lp_solve 5.5.2.11
   run:
     - python
+    # 1.29.0 predates upstream's pandas<3 cap (added in 1.30.0); pkgs/main ships pandas 3.x
     - pandas <3
     - networkx
     - numpy
